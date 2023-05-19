@@ -1,0 +1,16 @@
+img {
+	width: 100%
+}
+
+.image-and-name {
+	text-align: left;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.status {
+	border-radius: 32px;
+	padding: 5px 0px;
+}

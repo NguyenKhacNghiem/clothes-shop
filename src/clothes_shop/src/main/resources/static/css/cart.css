@@ -1,0 +1,44 @@
+/* css cho icon cart */
+.cart-icon {
+	position: relative;
+	display: inline-block;
+}
+
+.cart-count {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    font-size: 12px;
+    background-color: red;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+img:hover {
+	transform: scale(1.5); 
+}
+
+img {
+    width: 30%;
+    height: 300px;
+    transition: transform .2s;
+}
+
+.fa-circle-x {
+	cursor: pointer;
+}
+
+#total-price {
+	text-decoration: underline;
+}
+
+.image-and-name {
+	text-align: left;
+	cursor: pointer;
+}

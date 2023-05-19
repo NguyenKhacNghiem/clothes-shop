@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Tin Sản Phẩm</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a3e7be1751.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css">
+    <link rel="stylesheet" th:href="@{/css/product-info.css}">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="icon" th:href="@{/img/browser-icon.png}">
+</head>
+
+
+<!-- Dùng th:block để xét điều kiện dark theme mà in ra thẻ body tương ứng -->
+<th:block th:if="${darkTheme == false}">
+<body style="background-color: rgb(245, 245, 245);">
+</th:block>
+<th:block th:unless="${darkTheme == false}">
+<body style="background-color: rgb(50, 50, 50);">
+</th:block>
+    <nav th:replace="layout :: header"></nav>
+
+    <div class="container-fluid mt-5 pt-4">
+        <div class="row d-flex justify-content-center">
+        	<!-- Hình ảnh sản phẩm và các thông tin về sản phẩm -->
+            <div class="col-4">
+                <img th:src="@{/img/{productImage}(productImage=${product.image})}" style="width: 100%;">
+            </div>
+
+            <div class="col-7 product-info">
+                <h3 th:text="${product.name}"></h3>
+                <h5 th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT') + 'đ'}"></h5>
+                <p th:text="${product.description}" class="text-secondary"></p>
+                <h6>Kích thước: </h6>
+                <form th:action="@{/product-info/{id}(id=${product.id})}" method="post">
+                	<div class="custom-control custom-radio d-inline mr-2">
+	                    <input type="radio" class="custom-control-input" id="xxl" name="size" value="xxl" checked>
+	                    <label class="custom-control-label" for="xxl">XXL</label>
+	                </div>
+	                <div class="custom-control custom-radio d-inline mr-2">
+	                    <input type="radio" class="custom-control-input" id="xl" name="size" value="xl">
+	                    <label class="custom-control-label" for="xl">XL</label>
+	                </div>
+	                <div class="custom-control custom-radio d-inline mr-2">
+	                    <input type="radio" class="custom-control-input" id="m" name="size" value="m">
+	                    <label class="custom-control-label" for="m">M</label>
+	                </div>
+	                <br>
+	                <button class="btn btn-warning px-4 mt-3"><i class="fa-solid fa-cart-circle-plus"></i> Thêm vào giỏ hàng</button>
+                </form>
+                <p th:if="${success}" class="alert alert-success mt-3 text-center" id="success">Sản phẩm đã được thêm vào giỏ hàng</p>
+            </div>
+			
+			<!-- Bảng mô tả sản phẩm -->
+            <div class="col-11 mt-3">
+                <table class="table" style="background-color: white;">
+                    <tr>
+                        <th class="bg-warning">Tên Sản Phẩm</th>
+                        <td th:text="${product.name}"></td>
+                    </tr>
+                    <tr>
+                        <th class="bg-warning">Thương Hiệu</th>
+                        <td th:text="${product.brand}"></td>
+                    </tr>
+                    <tr>
+                        <th class="bg-warning">Mô Tả</th>
+                        <td th:text="${product.description}"></td>
+                    </tr>
+                    <tr>
+                        <th class="bg-warning">Giá Tiền</th>
+                        <td th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT') + 'đ'}"></td>
+                    </tr>
+                    <tr>
+                        <th class="bg-warning">Danh Mục</th>
+                        <td th:text="${product.catalog}"></td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Phần loop slider cho các sản phẩm liên quan -->
+            <h1 class="dark-theme">CÁC SẢN PHẨM LIÊN QUAN</h1>
+            <div id="loop-slider" class="col-12 mt-4">
+				<div class="image-container">
+					<div class="image-wrapper">
+						<div th:each="relatedProduct : ${relatedProducts}" class="box-product">
+							<img class="loop-slider-item" th:src="@{/img/{productImage}(productImage=${relatedProduct.image})}">
+							<div class="box bg-dark p-2">
+						  		<h5 class="text-warning" th:text="${relatedProduct.name}"></h5>
+						    	<p class="text-light" th:text="${#numbers.formatDecimal(relatedProduct.price, 0, 'POINT', 0, 'POINT') + 'đ'}"></p>
+						  		<a th:href="@{/product-info/{id}(id=${relatedProduct.id})}"><button class="btn btn-outline-warning">Xem Ngay</button></a>
+						  	</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+
+    <footer th:replace="layout :: footer"></footer>
+    <script th:src="@{/js/product-info.js}"></script>
+    <script th:src="@{/js/dark-theme.js}"></script>
+</body>
+
+</html>

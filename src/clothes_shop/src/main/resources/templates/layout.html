@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout</title>
+</head>
+
+<body>
+    <nav th:fragment="header" class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+        <a class="navbar-brand text-warning" th:href="@{/index}">CLOTHES | SHOP</a>
+        <ul class="navbar-nav">
+        	<li class="nav-item">
+                <a class="nav-link" th:href="@{/index}">Trang chủ</a>
+            </li>
+            <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop-products" data-toggle="dropdown">Sản phẩm</a>
+               	<div class="dropdown-menu">
+                   	<a th:each="catalog : ${catalogs}" class="dropdown-item" th:href="@{'/products?catalog=' + ${catalog.name}}" th:text="${catalog.name}"></a>
+               	</div>
+            </li>
+            <li th:if="${customer}" class="nav-item dropdown">
+				<a th:if="${customer.fullname != null and customer.fullname != ''}" th:text="${customer.fullname}" class="nav-link dropdown-toggle" href="#" id="navbardrop-customer" data-toggle="dropdown"></a>
+                   <div class="dropdown-menu">
+                   	<a class="dropdown-item" th:href="@{/profile}">Thông tin cá nhân</a>
+                   	<a class="dropdown-item" th:href="@{/history-orders}">Lịch sử đặt hàng</a>
+                    <a class="dropdown-item text-danger" th:href="@{/sign-in}">Đăng xuất</a>
+                </div>
+            </li>
+            <li th:unless="${customer}" class="nav-item">
+                <a class="nav-link" th:href="@{/sign-in}">
+                   	Đăng nhập
+               	</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <li th:if="${customer}" class="nav-item">
+                <a th:if="${customer.fullname != null and customer.fullname != ''}" class="nav-link cart-icon" th:href="@{/cart}">
+                	<i class="fa-solid fa-cart-shopping text-warning"></i>
+                	<span class="cart-count" th:text="${numberProductInCart}"></span>
+                </a>
+ 	            <a th:unless="${customer.fullname != null and customer.fullname != ''}" class="nav-link" th:href="@{/sign-in}"><i class="fa-solid fa-cart-shopping text-warning"></i></a>
+            </li>
+            
+            <li th:unless="${customer}" class="nav-item">
+ 	            <a class="nav-link" th:href="@{/sign-in}"><i class="fa-solid fa-cart-shopping text-warning"></i></a>
+            </li>
+            
+            <li th:if="${darkTheme == false}" class="nav-item"><a class="nav-link" th:href="@{/dark-theme}"><i class="fa-solid fa-moon"></i></a></li>
+            <li th:unless="${darkTheme == false}" class="nav-item"><a class="nav-link" th:href="@{/dark-theme}"><i class="fa-solid fa-moon text-warning"></i></a></li>
+        </ul>
+    </nav>
+
+    <footer th:fragment="footer" class="bg-dark mt-5 p-5">
+       	<table class="table table-borderless text-light">
+           <tr>
+           		<td rowspan="4" class="text-warning" id="logo">CLOTHES | SHOP</td>
+	           	<td><a class="footer-link" th:href="@{/index}">Trang chủ</a></td>
+	           	<td><a class="footer-link" th:href="@{/products}">Sản phẩm</a></td>
+	           	<td><a class="footer-link" th:href="@{/sign-up}">Đăng ký tài khoản</a></td>
+           </tr>
+           <tr>
+           		<td><a class="footer-link" href="#">Về chúng tôi</a></td>
+	           	<td><a class="footer-link" href="#">Chính sách bảo hành</a></td>
+	           	<td><a class="footer-link" href="#">Điều khoản</a></td>
+           </tr>
+           <tr>
+           		<td><a class="footer-link" href="#">Quyền riêng tư</a></td>
+	           	<td><a class="footer-link" href="#">FAQs</a></td>
+	           	<td><a class="footer-link" href="#">Liên hệ hợp tác</a></td>
+           </tr>
+           <tr>
+           		<td colspan="3">
+           			<span>Theo dõi chúng tôi:</span>
+           			<i class="fa-brands fa-facebook footer-icon text-primary"></i>
+           			<i class="fa-brands fa-instagram footer-icon text-danger"></i>
+           			<i class="fa-brands fa-twitter footer-icon text-info"></i>
+           		</td>
+           </tr>
+    	</table>
+		
+    </footer>
+</body>
+
+</html>

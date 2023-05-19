@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Danh Mục Sản Phẩm</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://kit.fontawesome.com/a3e7be1751.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css">
+	<link rel="stylesheet" th:href="@{css/products.css}">
+	<link rel="stylesheet" th:href="@{/css/layout.css}">
+	<link rel="icon" th:href="@{/img/browser-icon.png}">
+</head>
+
+
+<!-- Dùng th:block để xét điều kiện dark theme mà in ra thẻ body tương ứng -->
+<th:block th:if="${darkTheme == false}">
+<body style="background-color: rgb(245, 245, 245);">
+</th:block>
+<th:block th:unless="${darkTheme == false}">
+<body style="background-color: rgb(50, 50, 50);">
+</th:block>
+	<nav th:replace="layout :: header"></nav>
+
+	<div class="container-fluid mt-5 pt-4">
+		<div class="row">
+			<!-- Thanh tìm kiếm -->
+			<div class="position-relative col-12 mb-3">
+				<i class="fa-solid fa-search ml-3"></i> 
+				<input id="search-content" type="text" class="form-control py-4 px-5" style="border-radius: 32px;">
+				<button onclick="searchProducts()" id="search" class="btn btn-warning px-3">Tìm kiếm</button>
+			</div>
+			
+			<!-- Hiệu ứng loading -->
+    		<div class="loading mb-2 d-none"></div>
+
+			<!-- Khu vực lọc -->
+			<div class="col-2">
+				<!-- Lọc theo thương hiệu -->
+				<div class="filter-box">
+					<h5>Thương Hiệu</h5>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" value="Adidas" class="custom-control-input brand" id="adidas"> 
+						<label class="custom-control-label" for="adidas">Adidas</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" value="Lacoste" class="custom-control-input brand" id="lacoste"> 
+						<label class="custom-control-label" for="lacoste">Lacoste</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" value="Gucci" class="custom-control-input brand" id="gucci"> 
+						<label class="custom-control-label" for="gucci">Gucci</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" value="Nike" class="custom-control-input brand" id="nike"> 
+						<label class="custom-control-label" for="nike">Nike</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" value="Puma" class="custom-control-input brand" id="puma"> 
+						<label class="custom-control-label" for="puma">Puma</label>
+					</div>
+				</div>
+
+				<!-- Lọc theo giá tiền -->
+				<div class="filter-box">
+					<h5>Giá tiền</h5>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" value="1000000" class="custom-control-input price" id="lt1">
+						<label class="custom-control-label" for="lt1">Dưới 1.000.000đ</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" value="2000000" class="custom-control-input price" id="lt2">
+						<label class="custom-control-label" for="lt2">Dưới 2.000.000đ</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" value="3000000" class="custom-control-input price" id="lt3">
+						<label class="custom-control-label" for="lt3">Dưới 3.000.000đ</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" value="5000000" class="custom-control-input price" id="lt5">
+						<label class="custom-control-label" for="lt5">Dưới 5.000.000đ</label>
+					</div>
+				</div>
+			</div>
+
+			<!-- Khu vực kết quả -->
+			<div class="col-10">
+				<div id="product-list" class="row">
+					<!-- Dữ liệu tại đây sẽ được sinh tự động -->
+				</div>
+				
+				<!-- Khu vực điều hướng trang -->
+				<div class="text-center" id="page-navigation">
+	                <button class="btn btn-warning" onclick="previousPage()" id="previous"><i class="fa-solid fa-arrow-left"></i></button>
+	                <span id="page" class="text-warning">1</span>
+	                <span class="dark-theme">/</span>
+	                <span id="total-page" class="dark-theme">1</span>
+	                <button class="btn btn-warning" onclick="nextPage()" id="next"><i class="fa-solid fa-arrow-right"></i></button>
+            	</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout :: footer"></footer>
+	<script th:src="@{/js/products.js}"></script>
+	<script th:src="@{/js/dark-theme.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+.table td {
+    vertical-align: middle;
+}
+
+img {
+    width: 100%;
+}
+
+.change-active {
+	transition: 0.5s
+}
+
+.change-type {
+	cursor: pointer;
+	transition: 1s;
+}
