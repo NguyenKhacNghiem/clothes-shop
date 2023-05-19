@@ -31,9 +31,6 @@ A clothes shop website using Java Spring Boot.
 	- Search products by multiple criteria
 	- Paging product list
 2. **Administrator role**
-    - Sign up
-    - Sign in
-    - Sign out
     - Block or unblock customer account
 	- Update customer ranking: copper, silver, gold
 	- Update order status
