@@ -1,7 +1,7 @@
-# Clothes Shop Website
-A clothes shop website using Java Spring Boot.
+# Clothing Shop Website
+This project is a website that sells kinds of clothes such as t-shirts, jackets, pants, etc... With an intuitive and friendly UI, it can enhance the shopping experience for customers looking to purchase new clothes.
 ### Software Development Technologies
-1. **Frameworks**
+1. **Framework**
 - Spring Boot: is a popular framework for Java application development that simplifies the process of configuring and deploying Java applications.
 2. **Libraries**
 - Hibernate/ JPA: supports access to database
@@ -50,4 +50,3 @@ A clothes shop website using Java Spring Boot.
 2. **Administrator account**
     - username: admin
     - password: admin
-> Currently this program only supports **Vietnamese** language.
